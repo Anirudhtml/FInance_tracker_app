@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useUser } from "@clerk/clerk-react";
 
 import Table from "./Table";
@@ -13,6 +13,22 @@ function Form() {
   const [records, setRecords] = useState([]);
 
   const { user } = useUser();
+
+  const fetchRecord = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/recordByUserID/${user?.id}`
+      );
+      if (!response.ok) {
+        throw new Error("failed to get the records");
+      }
+
+      const data = await response.json();
+      setRecords(data);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -51,22 +67,6 @@ function Form() {
     }
   };
 
-  const fetchRecord = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/recordByUserID/${user?.id}`
-      );
-      if (!response.ok) {
-        throw new Error("failed to get the records");
-      }
-
-      const data = await response.json();
-      setRecords(data);
-    } catch (err) {
-      console.log("Error", err);
-    }
-  };
-
   const addTotalAmount = () => {
     return records.reduce((sum, record) => sum + record.amount, 0);
   };
@@ -75,7 +75,7 @@ function Form() {
     if (user) {
       fetchRecord();
     }
-  }, [user]);
+  }, [user, fetchRecord]);
 
   return (
     <div className="formContainer">
