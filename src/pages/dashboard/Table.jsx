@@ -5,58 +5,65 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function Table({ userData, fetchRecord }) {
   const handleDelete = async (id) => {
     try {
-      const respone = await fetch(`http://localhost:5000/records/${id}`, {
-        method: "DELETE",
-      });
-      if (!respone.ok) {
+      const response = await fetch(
+        `https://node-server-03vo.onrender.com/records/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
         throw new Error("error deleting the data");
       }
       console.log("data deleted");
 
       fetchRecord();
-
     } catch (err) {
       console.log("Error", err);
     }
   };
 
   if (!Array.isArray(userData)) {
-    return <div>no records found to display.</div>;
+    return <div>No records found to display.</div>;
   }
 
   return (
-    <div className="trackTable">
-      <table className="table">
-          <tr>
-            <th scope="col">Description</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Category</th>
-            <th scope="col">Payment Method</th>
-            <th scope="col">Date</th>
-            <th scope="col">Delete</th>
-          </tr>
-        <tbody>
-          {userData.map((record) => (
-            <tr key={record._id}>
-              <th scope="row">{record.description}</th>
-              <td>{record.amount}</td>
-              <td>{record.category}</td>
-              <td>{record.paymentType}</td>
-              <td>{record.date}</td>
-              <td>
-                <button className="deleteBtn"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleDelete(record._id);
-                  }}
-                >
-                  Delete
-                </button>
-              </td>
+    <div className="table-responsive">
+      <div className="tableWrapper">
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Category</th>
+              <th>Payment Method</th>
+              <th>Date</th>
+              <th>Delete</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {userData.map((record) => (
+              <tr key={record._id}>
+                <td>{record.description}</td>
+                <td>{record.amount}</td>
+                <td>{record.category}</td>
+                <td>{record.paymentType}</td>
+                <td>{record.date}</td>
+                <td>
+                  <button
+                    className="deleteBtn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDelete(record._id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

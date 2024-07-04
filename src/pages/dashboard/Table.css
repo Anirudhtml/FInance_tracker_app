@@ -1,12 +1,114 @@
-.deleteBtn {
+.formContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 40px;
+    margin: 20px;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .form {
+    flex: 1;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 600px;
+  }
+  
+  .table {
+    flex: 2;
+    padding: 20px;
+    margin-top: -10px;
+    text-align: center;
+    overflow-x: auto;
+    width: 100%; /* Ensure the table takes full width */
+    border-collapse: collapse;
+  }
+  
+  .formField {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .input {
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid rgba(148, 142, 142, 0.956);
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 10px;
+  }
+  
+  .input:focus {
+    outline: none;
+  }
+  
+  .addBtn {
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgb(35, 211, 79);
+    border: none;
+    color: white;
+    margin: 10px;
+  }
+  
+  .addBtn:hover {
+    background-color: rgba(35, 211, 79, 0.789);
+    cursor: pointer;
+  }
+  
+  .monthlyFunds {
+    padding: 10px;
+  }
+  
+  .table-primary {
+    height: auto;
+    text-align: center;
+  }
+  
+  /* Media query for mobile devices */
+  @media (max-width: 500px) {
+    .formContainer {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+    }
+  
+    .form, .table {
+      margin: 0;
+      width: 100%;
+      max-width: none;
+      padding: 10px; /* Add padding for better spacing */
+    }
+  
+    .formField {
+      width: 100%;
+    }
+  
+    .input {
+      width: 100%;
+    }
+  }
+  
+  /* Additional CSS for table */
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .deleteBtn {
     border: none;
     padding: 5px;
     border-radius: 10px;
     background-color: rgba(247, 28, 28, 0.865);
     color: white;
-    width: 7cqw;
-}
-
-.deleteBtn:hover {
+    width: 100%;
+  }
+  
+  .deleteBtn:hover {
     background-color: brown;
-}
+  }
+  

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useUser } from "@clerk/clerk-react";
 
 import Table from "./Table";
-import "./Form.css";
+import "./Table.css";
 
 function Form() {
   const [description, setDescription] = useState("");
@@ -17,7 +17,7 @@ function Form() {
   const fetchRecord = useCallback(async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/recordByUserID/${user?.id}`
+        `https://node-server-03vo.onrender.com/recordByUserID/${user?.id}`
       );
       if (!response.ok) {
         throw new Error("failed to get the records");
@@ -35,7 +35,7 @@ function Form() {
 
     const newRecord = {
       userID: user?.id,
-      date: new Date().toLocaleDateString(),
+      date: new Date().toISOString(),
       description: description,
       amount: parseFloat(amount),
       category: category,
@@ -43,7 +43,7 @@ function Form() {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/records", {
+      const response = await fetch("https://node-server-03vo.onrender.com/records", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newRecord),
